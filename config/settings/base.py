@@ -8,6 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 import environ
+import datetime
 
 ROOT_DIR = environ.Path(__file__) - 3  # (unfold/config/settings/base.py - 3 = unfold/)
 APPS_DIR = ROOT_DIR.path('unfold')
@@ -49,6 +50,9 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'rest_framework',
+    'rules.apps.AutodiscoverRulesConfig',
+    'rest_framework_rules'
 ]
 
 # Apps specific for this project go here.
@@ -56,6 +60,8 @@ LOCAL_APPS = [
     # custom users app
     'unfold.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'unfold.rest',
+    'unfold.transactions'
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -245,6 +251,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # AUTHENTICATION CONFIGURATION
 # ------------------------------------------------------------------------------
 AUTHENTICATION_BACKENDS = [
+    'rules.permissions.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
@@ -270,6 +277,23 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+APPEND_SLASH=False
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA':datetime.timedelta(days=365)
+}
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------

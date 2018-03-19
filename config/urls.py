@@ -4,6 +4,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from django.contrib.auth import get_user_model
+from rest_framework import routers, serializers, viewsets
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -17,7 +20,10 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-
+    url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^', include('transactions.urls')),
+    url(r'^api/', include('rest.urls')),
+    url(r'^api-token-auth/?$', obtain_jwt_token),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

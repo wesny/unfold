@@ -4,7 +4,6 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from .models import User
 
-
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     # These next two lines tell the view to index lookups by username
@@ -22,7 +21,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
-    fields = ['name', ]
+    fields = ['name', 'balance', 'is_publisher']
 
     # we already imported User in the view code above, remember?
     model = User

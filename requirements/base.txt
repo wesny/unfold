@@ -43,8 +43,12 @@ pytz==2018.3
 django-redis==4.8.0
 redis>=2.10.5
 
-
-
-
+#Rest API
+djangorestframework
+markdown
+django-filter
+djangorestframework-jwt
+rules
+django-rest-framework-rules
 
 # Your custom requirements go here
