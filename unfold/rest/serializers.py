@@ -39,8 +39,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         depth = 1
         validators = []
 
-    def save(self):
-        validated_data = self.validated_data
+    def create(self, validated_data):
         external_id=validated_data['external_id']
         url=validated_data['url'] 
         price=validated_data['price']

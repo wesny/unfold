@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^', include('transactions.urls')),
     url(r'^api/', include('rest.urls')),
     url(r'^api-token-auth/?$', obtain_jwt_token),
+    url(r'^cas/', include('mama_cas.urls')),
+    url(r'^stripe/', include('pinax.stripe.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

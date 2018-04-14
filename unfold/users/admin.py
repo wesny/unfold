@@ -2,6 +2,9 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from allauth.account.signals import user_signed_up
+from django.dispatch import receiver
+from pinax.stripe.actions import customers
 from .models import User
 
 
@@ -37,3 +40,7 @@ class MyUserAdmin(AuthUserAdmin):
     ) + AuthUserAdmin.fieldsets
     list_display = ('username', 'name', 'is_superuser')
     search_fields = ['name']
+
+@receiver(user_signed_up)
+def after_user_signed_up(sender, request, **kwargs):
+    customers.create(kwargs.get('user'))

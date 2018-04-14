@@ -13,7 +13,9 @@ from . import views
 app_name = 'transactions'
 
 urlpatterns = [
-    url(r'^purchase/?$', views.PurchaseView.as_view(), name='purchase-view')
+    url(r'^purchase/?$', views.PurchaseView.as_view(), name='purchase-view'),
+    url(r'^reload/?$', views.ReloadView.as_view(), name='reload-view'),
+    url(r'^stripe/charges/?$', views.ChargeListView.as_view(), name='reload-view')
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

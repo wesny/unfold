@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if can_charge %}
+<form method="post" class="form-horizontal">
+{% csrf_token %}
+Your current balance is ${{balance}}. How much would you like to add to your account?
+<div class="input-group">
+    <span class="input-group-addon">$</span>
+    <input name="amount" id="amount" type="text" class="form-control" placeholder="0.00" required>
+</div>
+<input class="btn btn-primary" type="submit" value="Submit" />
+</form>
+{% else %}
+You cannot be charged at this time. You may need to add a payment method.
+<a class="btn btn-primary" href="/stripe/payment-methods/" role="button">Add Payment Method</a>
+{% endif %}
+{% endblock content %}

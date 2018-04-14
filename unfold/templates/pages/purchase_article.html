@@ -4,7 +4,15 @@
 <form method="post">
 {% csrf_token %}
 {{ form}}
-Would you like to buy "{{title}}" from {{publisher}} for ${{price}}?
-<input type="submit" value="Yes" />
+Would you like to buy "{{title}}" from {{publisher}} for ${{price}}? 
+
+{% if next == '' %}
+Your current account balance is ${{balance}}.
+<input type="submit" class="btn btn-primary" value="Yes" />
+{% else %}
+<br>
+Your account balance is ${{balance}}, which is too low to make this purchase. Please reload your account.
+<a class="btn btn-primary" href="/reload?next={{next}}" role="button">Reload</a>
+{% endif %}
 </form>
 {% endblock content %}

@@ -8,7 +8,7 @@ class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
     # around the globe.
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
-    balance = models.DecimalField(max_digits=8, decimal_places=2)
+    balance = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     is_publisher = models.BooleanField(default=False)
 
     def __str__(self):

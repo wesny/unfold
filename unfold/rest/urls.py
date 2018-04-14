@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^users/?$', views.UserList.as_view(), name='user-list'),
     url(r'^purchases/?$', views.PurchaseList.as_view()),
     url(r'^has-access/?$', views.CanAccessArticle.as_view()),
+    url(r'^validate-token/?$', views.ValidateSSOToken.as_view()),
     url(r'^articles/?$', views.ArticleList.as_view(), name='article-list'),
 ]
 

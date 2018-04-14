@@ -20,18 +20,23 @@
     
 
     <!-- Your stuff: Third-party CSS libraries go here -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+
+
     
     <!-- This file stores project-specific CSS -->
     
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
     
     
     {% endblock %}
+    <body class="{% block body_class_base %}{% block body_class %}{% endblock %}{% endblock %}" id="{% block body_id %}{% endblock %}" {% block body_extra_attributes %}{% endblock %}>
 
   </head>
 
   <body>
-
+  
     <div class="m-b-1">
       <nav class="navbar navbar-expand-md navbar-light bg-light">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
