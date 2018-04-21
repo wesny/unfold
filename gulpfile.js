@@ -61,6 +61,22 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(paths.css));
 });
 
+gulp.task('styles', function() {
+  return gulp.src(paths.sass + '/home.scss')
+    .pipe(sass({
+      includePaths: [
+        paths.sass
+      ]
+    }).on('error', sass.logError))
+    .pipe(plumber()) // Checks for errors
+    .pipe(autoprefixer({browsers: ['last 2 versions']})) // Adds vendor prefixes
+    .pipe(pixrem())  // add fallbacks for rem units
+    .pipe(gulp.dest(paths.css))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(cssnano()) // Minifies the result
+    .pipe(gulp.dest(paths.css));
+});
+
 // Javascript minification
 gulp.task('scripts', function() {
   return gulp.src(paths.js + '/project.js')

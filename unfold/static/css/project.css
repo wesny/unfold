@@ -4,6 +4,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -7611,6 +7612,29 @@ body.pinax-stripe-payment-methods nav.settings-nav .pinax-stripe-payment-methods
   color: #fff;
   background-color: #007bff; }
 
+.highlight:hover {
+  background: #e9ecef; }
+
+.heading {
+  padding: 8px 16px;
+  padding: .5rem 1rem;
+  text-transform: uppercase;
+  color: #adb5bd;
+  letter-spacing: .1em; }
+
+.settings-nav a {
+  color: #495057; }
+
+.settings-nav a:hover {
+  background: #e9ecef; }
+
+.sections-nav .heading {
+  padding: 8px 16px;
+  padding: .5rem 1rem;
+  text-transform: uppercase;
+  color: #adb5bd;
+  letter-spacing: .1em; }
+
 body.pinax-stripe section {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -7812,6 +7836,19 @@ body.pinax-stripe form .exp-year {
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important; }
+
+#refill-input {
+  margin-bottom: 10px;
+  max-width: 150px; }
+
+.add-class {
+  max-width: 400px; }
+
+#api-key {
+  max-width: 500px; }
+
+#api-key-2 {
+  background-color: transparent !important; }
 
 .alert-debug {
   background-color: #fff;

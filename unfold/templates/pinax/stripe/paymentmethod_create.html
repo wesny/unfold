@@ -5,21 +5,28 @@
 
 {% block content %}
 
-<div class="pinax-stripe-payment-methods-create-container">
-    <h4>Create Payment Method</h4>
-    {% if errors %}
-        <div class="errors">
-            {{ errors }}
-        </div>
-    {% endif %}
-    <form data-stripe-key="{{ PINAX_STRIPE_PUBLIC_KEY }}" data-card-mount-id="card-element" data-card-errors-id="card-errors" action="{% url "pinax_stripe_payment_method_create" %}" method="post">
-        {% csrf_token %}
-        <div id="card-element"></div>
-        <div id="card-errors" role="alert"></div>
-        <div class="form-actions">
-            <button>Add</button>
-        </div>
-    </form>
+<div class="row">
+    <div class="col-sm-3">
+      {% include "../../_nav.html" %}
+      </div>
+    <div class="col-sm-9">
+      <div class="pinax-stripe-payment-methods-create-container">
+          <h4>Create Payment Method</h4>
+          {% if errors %}
+              <div class="errors">
+                  {{ errors }}
+              </div>
+          {% endif %}
+          <form data-stripe-key="{{ PINAX_STRIPE_PUBLIC_KEY }}" data-card-mount-id="card-element" data-card-errors-id="card-errors" action="{% url "pinax_stripe_payment_method_create" %}" method="post">
+              {% csrf_token %}
+              <div id="card-element" class="add-class"></div>
+              <div id="card-errors" role="alert"></div>
+              <div class="form-actions">
+                  <button class="btn btn-primary">Add</button>
+              </div>
+          </form>
+      </div>
+    </div>
 </div>
 {% endblock %}
 

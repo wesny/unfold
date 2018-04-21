@@ -303,5 +303,8 @@ JWT_AUTH = {
 PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "pk_test_KhhM9qHwQzJq0sIwOZVLusYB")
 PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_3umVhtL6ugMi9K6t7BmxSezF")
 
+ACCOUNT_SIGNUP_FORM_CLASS = 'unfold.users.admin.SignupForm'
+
+
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------

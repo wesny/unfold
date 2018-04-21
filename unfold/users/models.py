@@ -10,6 +10,7 @@ class User(AbstractUser):
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
     balance = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     is_publisher = models.BooleanField(default=False)
+    token = models.CharField(blank=True, max_length=255)
 
     def __str__(self):
         return self.username

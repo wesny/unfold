@@ -1,11 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.views.generic import DetailView, ListView, RedirectView, UpdateView
-from rest_framework import routers, serializers, viewsets
-from django.contrib.auth import get_user_model
+from django.views.generic import ListView
 from django.utils.http import is_safe_url
-from rest_framework import status, generics
+from django.contrib import messages
+from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from mama_cas.models import ServiceTicket
@@ -13,14 +11,20 @@ from mama_cas.utils import redirect as cas_redirect
 from mama_cas.utils import to_bool
 from rest_framework.response import Response
 from decimal import Decimal
+from django.urls import reverse
 import urllib
-from pinax.stripe.actions import customers, charges
 from pinax.stripe.mixins import CustomerMixin
 from pinax.stripe.models import Charge
+from pinax.stripe.actions import charges
+from stripe.error import CardError
+from rest_framework_jwt.settings import api_settings
 
 from unfold.transactions.models import Purchase, Article
 from unfold.transactions.admin import PurchaseForm
 from unfold.users.models import User
+
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 def bad_request(message):
     return Response({
@@ -114,7 +118,6 @@ class ReloadView(LoginRequiredMixin, View):
         return redirect_to if url_is_safe else ''
 
     def get(self, request, *args, **kwargs):
-        customer = customers.get_customer_for_user(self.request.user)
         can_charge = True
         balance = request.user.balance
         data = {
@@ -124,13 +127,39 @@ class ReloadView(LoginRequiredMixin, View):
         return render(request, self.template_name, data)
 
     def post(self, request, *args, **kwargs):
-        add_on = Decimal(request.POST.get('amount'))
+        try:
+            add_on = Decimal(request.POST.get('amount'))
+        except:
+            messages.error(request, 'Amount was not in the desired format.')
+            can_charge = True
+            balance = request.user.balance
+            data = {
+                'balance': balance,
+                'can_charge': can_charge
+            }
+            return render(request, self.template_name, data)
+        try:
+            charges.create(amount=add_on, customer=request.user.customer.stripe_id)
+        except CardError as e:
+            body = e.json_body
+            err = body.get('error', {})
+            messages.error(request, err.get('message'))
+            return reverse('reload-view')
         user = User.objects.get(username=request.user.username)
         user.balance = user.balance + add_on
-        charges.create(amount=add_on, customer=request.user.customer.stripe_id)
         user.save()
-        url = self.get_redirect_url() or '/'
+        url = self.get_redirect_url() or '/user'
         return redirect(url)
+
+class NewAPIKeyView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        payload = jwt_payload_handler(request.user)
+        token = jwt_encode_handler(payload)
+        request.user.token = token
+        request.user.save()
+        return redirect('/user')
+
 
 class StripeAccountFromCustomerMixin(object):
     @property
@@ -150,4 +179,11 @@ class ChargeListView(LoginRequiredMixin, CustomerMixin, ListView):
 
     def get_queryset(self):
         return super(ChargeListView, self).get_queryset().order_by("charge_created")
+
+class PurchaseListView(LoginRequiredMixin, ListView):
+    model = Purchase
+    template_name = "pages/articles_list.html"
+
+    def get_queryset(self):
+        return Purchase.objects.filter(buyer=self.request.user)
 

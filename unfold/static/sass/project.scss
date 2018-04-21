@@ -1,5 +1,46 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
+$font-family-sans-serif: "Roboto", "Helvetica", 'Helvetica Neue', Helvetica, sans-serif;
+
+$footer-bg-color: #FAFAFA;
+
+// Bootstrap v4
+// Reference: https://github.com/twbs/boo   tstrap/blob/v4-dev/scss/_variables.scss
+
+// For easy overriding
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #dc3545;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #28a745;
+$teal:    #20c997;
+$cyan:    #17a2b8;
+
+$primary:   $blue;
+$secondary: $gray-600;
+$success:   $green;
+$info:      $cyan;
+$warning:   $yellow;
+$danger:    $red;
+$light:     $gray-100;
+$dark:      $gray-800;
+
 body.pinax-stripe-subscriptions nav.settings-nav .pinax-stripe-subscriptions,
 body.pinax-stripe-invoices nav.settings-nav .pinax-stripe-invoices,
 body.pinax-stripe-payment-methods nav.settings-nav .pinax-stripe-payment-methods, {
@@ -10,6 +51,32 @@ body.pinax-stripe-payment-methods nav.settings-nav .pinax-stripe-payment-methods
 table {
     @extend .table;
     @extend .table-bordered;
+}
+
+.highlight:hover {
+    background: $gray-200;
+}
+
+.heading {
+    padding: .5rem 1rem;
+    text-transform: uppercase;
+    color: #adb5bd;
+    letter-spacing: .1em
+}
+
+.settings-nav a {
+    color: #495057
+}
+
+.settings-nav a:hover {
+    background: #e9ecef
+}
+
+.sections-nav .heading {
+    padding: .5rem 1rem;
+    text-transform: uppercase;
+    color: #adb5bd;
+    letter-spacing: .1em
 }
 
 body.pinax-stripe {
@@ -101,6 +168,23 @@ body.pinax-stripe {
 
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+}
+
+#refill-input {
+    margin-bottom: 10px;
+    max-width: 150px;
+}
+
+.add-class{
+    max-width: 400px;
+}
+
+#api-key{
+    max-width: 500px;
+}
+
+#api-key-2{
+    background-color:transparent !important;
 }
 
 

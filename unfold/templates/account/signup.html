@@ -6,18 +6,44 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block inner %}
-<h1>{% trans "Sign Up" %}</h1>
+<h1>{% if "publisher" in request.path %}Publisher {% endif %}{% trans "Sign Up" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<p>{% blocktrans %}Already have an account? Then please <a href="/accounts/login/">sign in</a>.{% endblocktrans %}</p>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+<form data-stripe-key="{{ PINAX_STRIPE_PUBLIC_KEY }}" data-card-mount-id="card-element" data-card-errors-id="card-errors" class="signup" id="signup_form" method="post" action="{% if "publisher" in request.path %}{% url 'publisher_signup' %}{% else %}{% url 'account_signup' %}{% endif %}">
   {% csrf_token %}
   {{ form|crispy }}
+  {% if "account" in request.path %}
+  <div id="div_id_creditcard" class="form-group"> 
+    <label for="id_creditcard" class="form-control-label  requiredField">
+                Credit Card<span class="asteriskField">*</span> 
+    </label>
+    <div id="card-element"></div>
+    <div id="card-errors" role="alert"></div>
+  </div>
+  <div id="div_id_name" class="form-group"> 
+    <label for="id_name" class="form-control-label">
+                  Amount to Add to Account</span> 
+    </label> 
+    <div class=""> <input name="amount" id="amount" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" class="form-control" placeholder="0.00" pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}" title="must be a dollar and cent value"> </div>
+    </div>
+  {% endif %}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
 </form>
 
+{% endblock %}
+
+{% block javascript %}
+{% include "pinax/stripe/_stripe_js.html" %}
+{{block.super }}
+<script type="text/javascript">
+$(function() {
+    $('#id_username').blur();
+    $("#id_email").focus();
+});
+</script>
 {% endblock %}
 
