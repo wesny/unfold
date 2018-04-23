@@ -1,3 +1,192 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
+$font-family-sans-serif: "Roboto", "Helvetica", 'Helvetica Neue', Helvetica, sans-serif;
+
+$footer-bg-color: #FAFAFA;
+
+// Bootstrap v4
+// Reference: https://github.com/twbs/boo   tstrap/blob/v4-dev/scss/_variables.scss
+
+// For easy overriding
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #dc3545;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #28a745;
+$teal:    #20c997;
+$cyan:    #17a2b8;
+
+$primary:   $blue;
+$secondary: $gray-600;
+$success:   $green;
+$info:      $cyan;
+$warning:   $yellow;
+$danger:    $red;
+$light:     $gray-100;
+$dark:      $gray-800;
+
+body.pinax-stripe-subscriptions nav.settings-nav .pinax-stripe-subscriptions,
+body.pinax-stripe-invoices nav.settings-nav .pinax-stripe-invoices,
+body.pinax-stripe-payment-methods nav.settings-nav .pinax-stripe-payment-methods, {
+    color: $nav-pills-link-active-color;
+    background-color: $nav-pills-link-active-bg;
+}
+
+table {
+    @extend .table;
+    @extend .table-bordered;
+}
+
+.highlight:hover {
+    background: $gray-200;
+}
+
+.heading {
+    padding: .5rem 1rem;
+    text-transform: uppercase;
+    color: #adb5bd;
+    letter-spacing: .1em
+}
+
+.settings-nav a {
+    color: #495057
+}
+
+.settings-nav a:hover {
+    background: #e9ecef
+}
+
+.sections-nav .heading {
+    padding: .5rem 1rem;
+    text-transform: uppercase;
+    color: #adb5bd;
+    letter-spacing: .1em
+}
+
+body.pinax-stripe {
+    section {
+        flex: 1;
+    }
+    h4 {
+        a {
+            @include button-variant($primary, $primary);
+        }
+    }
+    a.subscription-update,
+    a.payment-method-update {
+        @extend .btn;
+        @extend .btn-sm;
+        @include button-outline-variant($primary);
+    }
+    a.subscription-cancel,
+    a.payment-method-delete {
+        @extend .btn;
+        @extend .btn-sm;
+        @include button-outline-variant($danger);
+    }
+    button.payment-method-delete {
+        @include button-variant($danger, $danger);
+    }
+    table {
+        .pinax-stripe-charge-total,
+        .pinax-stripe-charge-paid {
+            text-align: right;
+        }
+        .pinax-stripe-charge-paid {
+            i {
+                color: $success;
+            }
+        }
+        .pinax-stripe-expiration,
+        .pinax-stripe-created {
+            text-align: right;
+        }
+    }
+    form {
+        .card-expiration {
+            @extend .form-group;
+            label {
+                font-weight: 500;
+                font-size: 1.2rem;
+                display: block;
+            }
+        }
+        .exp-month,
+        .exp-year {
+            display: inline-block;
+        }
+    }
+    input[type=text] {
+        @extend .form-control;
+    }
+}
+
+.pinax-stripe-subscriptions-cancel-container {
+    form {
+        button {
+            @include button-variant($danger, $danger);
+        }
+    }
+    .summary {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+}
+
+.StripeElement {
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 0.25rem;
+    border: 1px solid $gray-400;
+    margin-bottom: 20px;
+}
+
+.StripeElement--focus {
+    border-color: $input-focus-border-color;
+    box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color; // $input-focus-box-shadow;
+}
+
+.StripeElement--invalid {
+    border-color: $danger;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+#refill-input {
+    margin-bottom: 10px;
+    max-width: 150px;
+}
+
+.add-class{
+    max-width: 400px;
+}
+
+#api-key{
+    max-width: 500px;
+    margin: 0 auto !important;
+}
+
+#api-key-2{
+    background-color:transparent !important;
+}
 
 
 

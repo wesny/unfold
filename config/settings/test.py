@@ -59,3 +59,5 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
         'django.template.loaders.app_directories.Loader',
     ], ],
 ]
+
+SESSION_COOKIE_NAME = ".unfold.com"

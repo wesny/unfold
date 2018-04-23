@@ -51,4 +51,9 @@ djangorestframework-jwt
 rules
 django-rest-framework-rules
 
+-e "git+https://github.com/jbittel/django-mama-cas.git#egg=django_mama_cas"
+pinax-stripe
+pinax-templates
+django-bootstrap-form
+
 # Your custom requirements go here

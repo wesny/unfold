@@ -7,6 +7,7 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+import os
 import environ
 import datetime
 
@@ -52,7 +53,11 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',  # registration
     'rest_framework',
     'rules.apps.AutodiscoverRulesConfig',
-    'rest_framework_rules'
+    'rest_framework_rules',
+    'mama_cas',
+    'pinax.stripe',
+    'pinax.templates',
+    'bootstrapform'
 ]
 
 # Apps specific for this project go here.
@@ -294,6 +299,12 @@ APPEND_SLASH=False
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA':datetime.timedelta(days=365)
 }
+
+PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "pk_test_KhhM9qHwQzJq0sIwOZVLusYB")
+PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_3umVhtL6ugMi9K6t7BmxSezF")
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'unfold.users.admin.SignupForm'
+
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------

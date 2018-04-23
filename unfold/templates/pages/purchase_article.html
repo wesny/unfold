@@ -1,10 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="post">
-{% csrf_token %}
-{{ form}}
-Would you like to buy "{{title}}" from {{publisher}} for ${{price}}?
-<input type="submit" value="Yes" />
-</form>
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-12">
+        <form method="post">
+            {% csrf_token %}
+            {{ form}}
+        <div class="card text-center mt-5">
+          <div class="card-header">
+            Purchase Article
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">"{{title}}" by {{publisher}}</h5>
+            {% if next == '' %}
+            <p class="card-text">Would you like to buy this article for ${{price}}?</p>
+            <input type="submit" class="btn btn-primary" value="Yes" />
+            {% else %}
+            <p class="card-text">Your account balance is ${{balance}}, which is too low to make this purchase. Please reload your account.</p>
+            <a class="btn btn-primary" href="/reload?next={{next}}" role="button">Reload</a>
+            {% endif %}
+          </div>
+          <div class="card-footer text-muted">
+            Powered by UnFold
+          </div>
+        </div>
+        </form> 
+    </div>
+</div>
+
 {% endblock content %}

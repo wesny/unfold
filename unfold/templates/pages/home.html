@@ -1,1 +1,86 @@
 {% extends "base.html" %}
+{% load static i18n %}
+
+{% block css %}
+{{block.super}}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+{% endblock %}
+
+{% block body %}
+    <header class="masthead text-white text-center">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <h1 class="mb-5">UnFold: Modern Publishing The Way It Should Be</h1>
+          </div>
+          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+              <div class="form-row">
+                <div class="col-12 col-md-6">
+                  <a href="{% url 'publisher_signup' %}" class="btn btn-block btn-lg btn-primary">Publisher Sign Up</a>
+                </div>
+                <div class="col-12 col-md-6">
+                  <a href="{% url 'account_signup' %}" class="btn btn-block btn-lg btn-primary">User Sign Up</a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Icons Grid -->
+    <section class="features-icons bg-light text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+              <div class="features-icons-icon d-flex">
+                <i class="icon-book-open m-auto text-primary"></i>
+              </div>
+              <h3>Publishers</h3>
+              <p class="lead mb-0">Publishers get paid every time someone reads one of their stories</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+              <div class="features-icons-icon d-flex">
+                <i class="icon-layers m-auto text-primary"></i>
+              </div>
+              <h3>Microtransaction Driven</h3>
+              <p class="lead mb-0">Pay a small amount per each article from a central account with easy backend integration</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+              <div class="features-icons-icon d-flex">
+                <i class="icon-user m-auto text-primary"></i>
+              </div>
+              <h3>Users</h3>
+              <p class="lead mb-0">Users only pay for what they consume and own each article forever</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+        <footer class="footer bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <a href="#">Thesis Writeup</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="https://github.com/wesny/unfold">Backend Repo</a>
+              </li>
+              <li class="list-inline-item">&sdot;</li>
+              <li class="list-inline-item">
+                <a href="https://github.com/wesny/unfold-plugin-django">Plugin Repo</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "../base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-3">
+      {% include "../_nav.html" %}
+      </div>
+    <div class="col-sm-9">
+      <div>
+    <h4>
+        Purchased Articles
+    </h4>
+    <table>
+        <thead>
+            <tr><th>Publisher</th><th>Title</th><th>Price</th></tr>
+        </thead>
+        <tbody>
+            {% for source in object_list %}
+            <tr>
+                <td>{{ source.article.publisher.name }}</td>
+                <td><a href="{{ source.article.url }}">{{ source.article.title }}</a></td>
+                <td>${{ source.price }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">You have no purchased articles</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    </div>
+</div>
+
+{% endblock %}

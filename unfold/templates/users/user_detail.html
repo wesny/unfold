@@ -4,34 +4,90 @@
 {% block title %}User: {{ object.username }}{% endblock %}
 
 {% block content %}
+
 <div class="container">
 
   <div class="row">
-    <div class="col-sm-12">
+      <div class="col-sm-3">
+        {% include "../_nav.html" %}
+      </div>
+      <div class="col-sm-7">
+        <div class="card text-center mt-5">
+          <div class="card-header">
+            {{ object.username }}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Name: {{ object.name }}</h5>
+            <p class="card-text">Your current account balance is ${{ object.balance }}</p>
+            {% if object.is_publisher %}
+            <label for="api_key" class="form-control-label">You are currently logged into a publisher account. Your API key is:</label>
+            <div id="api-key" class="input-group center-block">
+              <input id="api-key-2" type="text" class="form-control" value="{{object.token}}" readonly="" onclick="this.select()">
+              <div class="input-group-append">
+                    <button id="copy-btn" class="btn btn-outline-secondary" type="button" data-clipboard-target="#api-key-2" data-toggle="tooltip" data-placement="bottom" title="Copied">
+                      <img class="clippy" src="{% static 'images/clippy.svg' %}" width="13" alt="Copy">
+                    </button>
+              </div>  
+            </div>
+            <br>
+            <form method="POST"action="{% url 'transactions:new-api-key-view' %}"">
+              {% csrf_token %}
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">New API Key</button>
+                </div>
+              </div>
+            </form>
+            {% endif %}
+          </div>
+          <div class="card-footer text-muted">
+          </div>
+        </div>
 
-      <h2>{{ object.username }}</h2>
+      <!-- <h2>{{ object.username }}</h2>
       {% if object.name %}
-        <p>{{ object.name }}</p>
+        <p>Name: {{ object.name }}</p>
       {% endif %}
-      <p>${{ object.balance }}</p>
+      <p>Your current account balance is ${{ object.balance }}</p>
+      {% if object.is_publisher %}
+      <label for="api_key" class="form-control-label">You are currently logged into a publisher account. Your API key is:</label>
+      <div id="api-key" class="input-group">
+        <input id="api-key-2" type="text" class="form-control" value="{{object.token}}" readonly="" onclick="this.select()">
+        <div class="input-group-append">
+              <button id="copy-btn" class="btn btn-outline-secondary" type="button" data-clipboard-target="#api-key-2" data-toggle="tooltip" data-placement="bottom" title="Copied">
+                <img class="clippy" src="{% static 'images/clippy.svg' %}" width="13" alt="Copy">
+              </button>
+        </div>  
+      </div>
+      <br>
+      <form method="POST"action="{% url 'transactions:new-api-key-view' %}"">
+        {% csrf_token %}
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">New API Key</button>
+          </div>
+        </div>
+      </form>
+      {% endif %} -->
     </div>
   </div>
 
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
-</div>
-<!-- End Action buttons -->
-{% endif %}
-
-
 </div>
 {% endblock content %}
+
+{% block javascript %}
+{{block.super}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script type="text/javascript">
+  var clipboard = new ClipboardJS('#copy-btn');
+  clipboard.on('success', function(e) {
+      $('#copy-btn').tooltip('show');
+      e.clearSelection();
+  });
+  $('#copy-btn').on('mouseleave', function () {
+    $('#copy-btn').tooltip('hide');
+  });
+</script>
+
+{% endblock %}
 

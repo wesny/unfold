@@ -3,12 +3,15 @@ from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from rest_framework import routers, serializers, viewsets
 from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 from rest_framework import status, generics
 from django.db.models import Q
 from rest_framework_rules.mixins import PermissionRequiredMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
+from mama_cas.cas import validate_service_ticket
+from mama_cas.exceptions import ValidationError
 
 from .serializers import *
 
@@ -20,6 +23,12 @@ def bad_request(message):
         'status': 'error',
         'message': message,
     }, status=status.HTTP_400_BAD_REQUEST)
+
+def bad_credentials(message):
+    return Response({
+        'status': 'error',
+        'message': message,
+    }, status=status.HTTP_401_UNAUTHORIZED)
 
 class IsPublisher(permissions.BasePermission):
 
@@ -59,18 +68,42 @@ class PurchaseList(APIView):
 class CanAccessArticle(APIView):
     permission_classes = (permissions.IsAuthenticated, IsPublisher,)
 
-    def get(self, request, format=None):
-        try:
-            username = self.request.query_params['username']
-        except:
-            return bad_request('Required parameter missing: username')
+    def get(self, request):
         try:
             external_id = self.request.query_params['id']
         except:
             return bad_request('Required parameter missing: id')
-        authorized = Purchase.objects.filter(buyer__username=username, publisher=request.user, article__external_id=external_id).exists()
-
+        username = self.request.query_params.get('username', None)
+        token = self.request.query_params.get('token', None)
+        if not username and not token:
+            return bad_request('Must include either username or token')
+        if token:
+            try:
+                st, attributes, pgt = validate_service_ticket(request.user.get_username() + '.com', token)
+                token_username = st.user.get_username()
+            except ValidationError:
+                return bad_credentials("Token is invalid or expired")
+            if username and username != token_username:
+                return bad_request("Username must match token username")
+            else:
+                username = token_username
+        authorized = Purchase.objects.filter(buyer__username=username, article__publisher=request.user, article__external_id=external_id).exists()
         return Response({ "result": authorized })
+
+class ValidateSSOToken(APIView):
+    permission_classes = (permissions.IsAuthenticated, IsPublisher,)
+
+    def get(self, request):
+        try:
+            token = self.request.query_params['token']
+        except:
+            return bad_request('Required parameter missing: token')
+        try:
+            st, attributes, pgt = validate_service_ticket(request.user.get_username() + '.com', token)
+            result = {'valid' : True, 'username' : st.user.get_username()}
+        except ValidationError:
+            result = {'valid' : False}
+        return Response(result)
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -93,8 +126,8 @@ class ArticleList(generics.ListCreateAPIView):
         art=Article(publisher=request.user)
         serializer = self.serializer_class(art, data=request.data, context={'request': request})
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            art = serializer.create(serializer.validated_data)
+            return Response(self.serializer_class(art).data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

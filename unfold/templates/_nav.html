@@ -1,0 +1,30 @@
+<div class="heading">Account</div>
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "detail" %} active{% endif %}" href="{% url 'users:detail' %}">View Account Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "update" %} active{% endif %}" href="{% url 'users:update' %}">Edit Account Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "account_email" %} active{% endif %}" href="{% url 'account_email' %}">Manage E-Mails</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "account_change_password" %} active{% endif %}" href="{% url 'account_change_password' %}">Change Password</a>
+  </li>
+</ul>
+<div class="heading">Purchases</div>
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "articles-view" %} active{% endif %}" href="{% url 'transactions:articles-view' %}">Purchased Articles</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "reload-view" %} active{% endif %}" href="{% url 'transactions:reload-view' %}">Reload Account</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "pinax_stripe_payment_method_list" %} active{% endif %}" href="{% url 'pinax_stripe_payment_method_list' %}">Payment Methods</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link highlight {% if request.resolver_match.url_name == "charges-view" %} active{% endif %}" href="{% url 'transactions:charges-view' %}">Payment History</a>
+  </li>
+</ul>

@@ -1,0 +1,43 @@
+{% extends "pinax/stripe/base.html" %}
+
+{% block body_class %}{{ block.super }} pinax-stripe-invoices{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-3">
+      {% include "../../_nav.html" %}
+      </div>
+    <div class="col-sm-9">
+      <div class="pinax-subscriptions-invoices-container">
+          <h4>Payment History</h4>
+          <table>
+              <thead>
+                  <tr>
+                      <th>Date</th><th>Amount</th><th>Paid</th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for charge in object_list %}
+              <tr>
+                  <td>
+                      {{ charge.charge_created }}
+                  </td>
+                  <td class="pinax-stripe-charge-total">
+                      {{ charge.amount }}
+                  </td>
+                  <td class="pinax-stripe-charge-paid">
+                      {% if charge.paid %}<i class="fas fa-check"></i>{% endif %}
+                  </td>
+              </tr>
+              {% empty %}
+              <tr>
+                  <td colspan="3">You have no payment history</td>
+              </tr>
+              {% endfor %}
+              <tbody>
+
+      </div>
+    </div>
+</div>
+{% endblock %}
