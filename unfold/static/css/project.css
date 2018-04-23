@@ -7845,7 +7845,8 @@ body.pinax-stripe form .exp-year {
   max-width: 400px; }
 
 #api-key {
-  max-width: 500px; }
+  max-width: 500px;
+  margin: 0 auto !important; }
 
 #api-key-2 {
   background-color: transparent !important; }

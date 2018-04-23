@@ -11,9 +11,40 @@
       <div class="col-sm-3">
         {% include "../_nav.html" %}
       </div>
-      <div class="col-sm-9">
+      <div class="col-sm-7">
+        <div class="card text-center mt-5">
+          <div class="card-header">
+            {{ object.username }}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Name: {{ object.name }}</h5>
+            <p class="card-text">Your current account balance is ${{ object.balance }}</p>
+            {% if object.is_publisher %}
+            <label for="api_key" class="form-control-label">You are currently logged into a publisher account. Your API key is:</label>
+            <div id="api-key" class="input-group center-block">
+              <input id="api-key-2" type="text" class="form-control" value="{{object.token}}" readonly="" onclick="this.select()">
+              <div class="input-group-append">
+                    <button id="copy-btn" class="btn btn-outline-secondary" type="button" data-clipboard-target="#api-key-2" data-toggle="tooltip" data-placement="bottom" title="Copied">
+                      <img class="clippy" src="{% static 'images/clippy.svg' %}" width="13" alt="Copy">
+                    </button>
+              </div>  
+            </div>
+            <br>
+            <form method="POST"action="{% url 'transactions:new-api-key-view' %}"">
+              {% csrf_token %}
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">New API Key</button>
+                </div>
+              </div>
+            </form>
+            {% endif %}
+          </div>
+          <div class="card-footer text-muted">
+          </div>
+        </div>
 
-      <h2>{{ object.username }}</h2>
+      <!-- <h2>{{ object.username }}</h2>
       {% if object.name %}
         <p>Name: {{ object.name }}</p>
       {% endif %}
@@ -37,7 +68,7 @@
           </div>
         </div>
       </form>
-      {% endif %}
+      {% endif %} -->
     </div>
   </div>
 

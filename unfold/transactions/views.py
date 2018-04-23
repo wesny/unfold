@@ -96,7 +96,7 @@ class PurchaseView(LoginRequiredMixin, View):
             purchase.save()
             request.user.balance = request.user.balance - purchase.price
             request.user.save()
-            publisher = User.get(username=publisherusername)
+            publisher = User.objects.get(username=publisherusername)
             publisher.balance = publisher.balance + purchase.price
             publisher.save()
             if new_token != None:
@@ -144,10 +144,11 @@ class ReloadView(LoginRequiredMixin, View):
             body = e.json_body
             err = body.get('error', {})
             messages.error(request, err.get('message'))
-            return reverse('reload-view')
+            return redirect("/reload")
         user = User.objects.get(username=request.user.username)
         user.balance = user.balance + add_on
         user.save()
+        messages.success(request, "Payment was successfully processed.")
         url = self.get_redirect_url() or '/user'
         return redirect(url)
 
