@@ -13,6 +13,7 @@
           <div class="card-body">
             <h5 class="card-title">"{{title}}" by {{publisher}}</h5>
             {% if next == '' %}
+            <p class="card-text">Your current account balance is ${{balance}}.</p>
             <p class="card-text">Would you like to buy this article for ${{price}}?</p>
             <input type="submit" class="btn btn-primary" value="Yes" />
             {% else %}
