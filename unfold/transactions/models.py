@@ -13,9 +13,6 @@ class Article(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     title = models.CharField(max_length=255)
 
-    # class Meta:
-    #     unique_together = (("publisher", "external_id"),)
-
     def __str__(self):
         return '{}'.format(self.external_id)
       
