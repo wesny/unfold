@@ -300,8 +300,8 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA':datetime.timedelta(days=365)
 }
 
-PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "pk_test_KhhM9qHwQzJq0sIwOZVLusYB")
-PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_3umVhtL6ugMi9K6t7BmxSezF")
+PINAX_STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", None)
+PINAX_STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", None)
 
 ACCOUNT_SIGNUP_FORM_CLASS = 'unfold.users.admin.SignupForm'
 

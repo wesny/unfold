@@ -1,0 +1,105 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>UnFold</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      html {
+        font-family: 'Source Sans Pro', sans-serif;
+        position: relative;
+        min-height: 100%;
+      }
+      body {
+        /* Margin bottom by footer height */
+        margin-bottom: 60px;
+      }
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      body > .container {
+        padding: 60px 15px 0;
+      }
+
+      body > .container > h1, h3, h4 {
+        text-align: center;
+      }
+
+      .darker-grey{
+        color: rgb(50, 50, 50);
+      }
+
+      .grey {
+        color: rgb(64, 64, 64);
+      }
+
+    </style>
+
+
+  </head>
+
+  <body>
+
+    <header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Unfold</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="report.pdf" target="_blank">Report</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="proposal.pdf" target="_blank">Proposal</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://github.com/wesny/unfold" target="_blank">UnFold Main Code</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://github.com/wesny/unfold-plugin-django" target="_blank">UnFold Blog Code</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://unfoldapp.herokuapp.com" target="_blank">UnFold Demo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://unfold-demo-blog.herokuapp.com" target="_blank">Blog for Demo</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="container">
+      <h1 class="mt-5 darker-grey">UnFold: A Modern Payment Platform for Publishers</h1>
+      <h3 class="grey">By Sweyn Venderbush</h3>
+      <h4 class="grey mb-3">Advisor: Ruzica Piskac</h4>
+      <p class="lead grey">The internet has dramatically changed the way that people discover and consume media. The average consumer reads news a large number of articles from a wider variety of sources than ever before. But models of monetization haven't shifted to reflect this new paradigm of consumption, instead relying on the 20<sup>th</sup> century models of monthly subscriptions and advertisements. 
+      <p class="lead grey">This project aims to offer a proof of concept for a new model of monetization for web publishing. It allows publishers to price their content on a per article basis and gives users the ability to pay for articles for any in-network news source with minimal friction and no transaction costs via a centralized account, which also keeps track of every transaction and all the articles a user owns so they can easily come back and read them again.</p> 
+      <p class="lead grey">The deliverable technical work consists of three pieces: a backend component that keeps track of user information and transactions on the network, a front-end component that allows publishers and users to manage their accounts and allows user to transact on the network, and a backend plugin for Django-based web applications as a proof of concept of how UnFold could be easily integrated into an existing publisher's site.</p>
+    </main>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
