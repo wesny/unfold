@@ -85,9 +85,11 @@ Setting Up Your Users
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-Setting Up Your Users
+Running Your Own UnFold Server
 ^^^^^^^^^^^^^^^^^^^^^
 The default UnFold Django Plugin lists the main UnFold server as the target for all queries. If you would like to change this, you can change it in the UnFold Django Plugin to point to your server. From there, your UnFold server can act as the central routing point for UnFold transactions.
+
+UnFold allows for a variety of API calls, which are currently documented exclusively for use with the UnFold Django Plugin. However, while not documented, if you would like to integrate UnFold into your application manually, they are secure for use.
 
 
 
